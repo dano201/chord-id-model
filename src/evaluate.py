@@ -48,7 +48,8 @@ def evaluate(input_dir, label_dir):
     test_set = create_dataset(X, batch_size=16)
     y_pred_raw = model.predict(test_set)
 
-    threshold = 0.35
+    threshold = np.max(y_pred_raw, axis=1, keepdims=True) * 0.4
+
     y_pred = (y_pred_raw >= threshold).astype(int)
     y_true = np.array(y_true)
 
