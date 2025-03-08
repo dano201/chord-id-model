@@ -1,4 +1,5 @@
 import numpy as np
+from model import custom_accuracy
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 import tensorflow as tf
 import os
@@ -43,7 +44,7 @@ def create_dataset(X, batch_size=4):
 
 def evaluate(input_dir, label_dir):
     X, y_true = load_data(input_dir, label_dir)
-    model = tf.keras.models.load_model('models/model.h5')
+    model = tf.keras.models.load_model('models/model.h5', custom_objects={'custom_accuracy': custom_accuracy})
     
     test_set = create_dataset(X, batch_size=16)
     y_pred_raw = model.predict(test_set)

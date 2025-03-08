@@ -45,7 +45,7 @@ def prepare_data(input_dir, label_dir, batch_size):
 
     return dataset
 
-def train(dataset, validation, batch_size=32, epochs=25, model_path='models/model.keras'):
+def train(dataset, validation, batch_size=32, epochs=50, model_path='models/test_model.keras'):
     model = build_model()
 
     early_stopping = EarlyStopping(
@@ -66,7 +66,7 @@ def train(dataset, validation, batch_size=32, epochs=25, model_path='models/mode
                         validation_data = validation,
                         callbacks=[early_stopping, checkpoint])
     
-    history = os.path.join(os.path.dirname(model_path), "history.json")
+    history = os.path.join(os.path.dirname(model_path), "alt dataset.json")
     with open(history, 'w') as f:
         json.dump(trained.history, f)
 
@@ -76,13 +76,13 @@ def train(dataset, validation, batch_size=32, epochs=25, model_path='models/mode
 
 if __name__ == "__main__":
 
-    batch_size = 64
+    batch_size = 32
 
     train_dir = "data/train/processed/"
     train_label_dir = "data/train/labels/"
 
-    val_dir = "data/validation/processed/"
-    val_label_dir = "data/validation/labels/"
+    val_dir = "data/test/processed/"
+    val_label_dir = "data/test/labels/"
 
     train_set = prepare_data(train_dir, train_label_dir, batch_size)
     val_set = prepare_data(val_dir, val_label_dir, batch_size)
