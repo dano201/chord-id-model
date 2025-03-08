@@ -45,7 +45,7 @@ def prepare_data(input_dir, label_dir, batch_size):
 
     return dataset
 
-def train(dataset, validation, batch_size=32, epochs=50, model_path='models/test_model.keras'):
+def train(dataset, validation, batch_size=32, epochs=50, model_path='models/model.h5'):
     model = build_model()
 
     early_stopping = EarlyStopping(
