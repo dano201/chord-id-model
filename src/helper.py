@@ -38,7 +38,7 @@ def find_notes(fret_string):
             octave = ((start + fret) // 12) + open_octave
             output += (note + str(octave) + " ")
 
-    return output
+    return output.rstrip(" ")
 
 ## Make filepaths absolute so scripts can be executed from any directory
 def make_abs(path):
