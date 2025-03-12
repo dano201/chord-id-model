@@ -55,13 +55,13 @@ if __name__ == "__main__":
     with open(make_abs('./config.yaml'), 'r') as f:
         conf = yaml.safe_load(f)
 
-    # process_dir(make_abs(conf['paths']['train_raw']), 
-    #             make_abs(conf['paths']['train_processed']), 
-    #             make_abs(conf['paths']['train_labels']))
+    process_dir(make_abs(conf['paths']['train_raw']), 
+                make_abs(conf['paths']['train_processed']), 
+                make_abs(conf['paths']['train_labels']))
 
-    # process_dir(make_abs(conf['paths']['val_raw']), 
-    #             make_abs(conf['paths']['val_processed']), 
-    #             make_abs(conf['paths']['val_labels']))
+    process_dir(make_abs(conf['paths']['val_raw']), 
+                make_abs(conf['paths']['val_processed']), 
+                make_abs(conf['paths']['val_labels']))
 
     process_dir(make_abs(conf['paths']['test_raw']), 
                 make_abs(conf['paths']['test_processed']), 
