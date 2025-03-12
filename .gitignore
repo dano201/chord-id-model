@@ -1,6 +1,6 @@
 .venv/
 src/__pycache__/
-test/__pycache__/
+tests/__pycache__/
 data/*/labels/*
 data/*/processed/*
 data/*/raw/*
