@@ -68,13 +68,13 @@ def train(dataset, validation, batch_size, epochs, model_path):
                         validation_data = validation,
                         callbacks=[early_stopping, checkpoint])
     
-    history = os.path.join(os.path.dirname(model_path), "alt dataset.json")
+    history = os.path.join(os.path.dirname(model_path), "history.json")
     with open(history, 'w') as f:
         json.dump(trained.history, f)
 
     model.save(model_path)
 
-    return "Model training complete."
+    return "Training complete."
 
 if __name__ == "__main__":
 

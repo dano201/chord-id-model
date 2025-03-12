@@ -1,4 +1,4 @@
-from src.helper import find_notes, make_abs
+from helper import find_notes, make_abs
 import pytest
 import os
 
