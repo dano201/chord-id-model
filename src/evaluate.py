@@ -1,8 +1,10 @@
 import numpy as np
 from model import custom_accuracy
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
+from helper import make_abs
 import tensorflow as tf
 import os
+import yaml
 
 def load_data(input_dir, label_dir):
     X = []
@@ -28,7 +30,7 @@ def load_data(input_dir, label_dir):
 
     return X, y
 
-def create_dataset(X, batch_size=4):
+def create_dataset(X, batch_size):
     def _generator():
         for cqt in X:
             yield cqt
@@ -38,15 +40,17 @@ def create_dataset(X, batch_size=4):
         output_signature=tf.TensorSpec(shape=(74, None), dtype=tf.float32)
     )
 
+    
+
     dataset = dataset.padded_batch(batch_size, padded_shapes=([74, None]))
 
     return dataset
 
-def evaluate(input_dir, label_dir):
+def evaluate(input_dir, label_dir, batch_size, model_path):
     X, y_true = load_data(input_dir, label_dir)
-    model = tf.keras.models.load_model('models/model.h5', custom_objects={'custom_accuracy': custom_accuracy})
+    model = tf.keras.models.load_model(model_path, custom_objects={'custom_accuracy': custom_accuracy})
     
-    test_set = create_dataset(X, batch_size=16)
+    test_set = create_dataset(X, batch_size)
     y_pred_raw = model.predict(test_set)
 
     threshold = np.max(y_pred_raw, axis=1, keepdims=True) * 0.4
@@ -66,8 +70,13 @@ def evaluate(input_dir, label_dir):
 
 if __name__ == "__main__":
     
-    cqt_dir = "data/test/processed/"
-    label_dir = "data/test/labels/"
+    with open(make_abs('./config.yaml'), 'r') as f:
+        conf = yaml.safe_load(f)
 
-    evaluate(cqt_dir, label_dir)
+    batch_size = conf['params']['batch_size']
+    model_path = make_abs(conf['paths']['model'])
+    cqt_dir = make_abs(conf['paths']['test_processed'])
+    label_dir = make_abs(conf['paths']['test_labels'])
+
+    evaluate(cqt_dir, label_dir, batch_size, model_path)
 

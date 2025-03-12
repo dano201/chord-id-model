@@ -1,16 +1,15 @@
 import librosa
 import numpy as np
 import os
-from helper import find_notes, note_dict
+import yaml
+from helper import find_notes, make_abs, note_dict
 
 def to_CQT(file):
     y, sr = librosa.load(file, sr=16000)
     CQT = librosa.cqt(y, sr=sr, fmin=librosa.note_to_hz('E2'), n_bins=74, bins_per_octave=24)
     CQT_db = librosa.amplitude_to_db(np.abs(CQT), ref=np.max)
 
-    # Normalise
     CQT_db = (CQT_db - np.min(CQT_db)) / (np.max(CQT_db) - np.min(CQT_db))
-
     return CQT_db
 
 def create_label(filename):
@@ -27,7 +26,7 @@ def create_label(filename):
     
     return label
 
-def preprocess_dir(input_dir, output_dir, label_dir):
+def process_dir(input_dir, output_dir, label_dir):
     for root, dirs, files in os.walk(input_dir):
         for f in files:
             if f.endswith(".wav"):
@@ -53,21 +52,18 @@ def preprocess_dir(input_dir, output_dir, label_dir):
 
 if __name__ == "__main__":
 
-    train_input_dir = "data/train/raw/"
-    train_output_dir = "data/train/processed/"
-    train_label_dir = "data/train/labels/"
+    with open(make_abs('./config.yaml'), 'r') as f:
+        conf = yaml.safe_load(f)
 
-    preprocess_dir(train_input_dir, train_output_dir, train_label_dir)
+    # process_dir(make_abs(conf['paths']['train_raw']), 
+    #             make_abs(conf['paths']['train_processed']), 
+    #             make_abs(conf['paths']['train_labels']))
 
-    val_input_dir = "data/validation/raw/"
-    val_output_dir = "data/validation/processed/"
-    val_label_dir = "data/validation/labels/"
+    # process_dir(make_abs(conf['paths']['val_raw']), 
+    #             make_abs(conf['paths']['val_processed']), 
+    #             make_abs(conf['paths']['val_labels']))
 
-    preprocess_dir(val_input_dir, val_output_dir, val_label_dir)
-
-    test_input_dir = "data/test/raw/"
-    test_output_dir = "data/test/processed/"
-    test_label_dir = "data/test/labels/"
-
-    preprocess_dir(test_input_dir, test_output_dir, test_label_dir)
+    process_dir(make_abs(conf['paths']['test_raw']), 
+                make_abs(conf['paths']['test_processed']), 
+                make_abs(conf['paths']['test_labels']))
 

@@ -1,3 +1,5 @@
+import os
+
 ## Input frets can only be in format ABCDEF if all notes are on a single digit fret; otherwise, each fret value must be space-delineated, e.g. X 8 10 10 10 8
 def find_notes(fret_string):
 
@@ -38,6 +40,14 @@ def find_notes(fret_string):
 
     return output
 
+## Make filepaths absolute so scripts can be executed from any directory
+def make_abs(path):
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if not os.path.isabs(path):
+        return os.path.join(root, path)
+    else:
+        return path
+    
 ## Dictionaries mapping notes to array indexes, and vice versa
 note_dict = {
     'E2': 0, 'F2': 1, 'F#2': 2, 'G2': 3, 'G#2': 4, 'A2': 5, 'A#2': 6, 'B2': 7,

@@ -3,6 +3,8 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 from model import build_model
+from helper import make_abs
+import yaml
 import json
 
 def create_dataset(X, y, batch_size):
@@ -45,7 +47,7 @@ def prepare_data(input_dir, label_dir, batch_size):
 
     return dataset
 
-def train(dataset, validation, batch_size=32, epochs=50, model_path='models/model.h5'):
+def train(dataset, validation, batch_size, epochs, model_path):
     model = build_model()
 
     early_stopping = EarlyStopping(
@@ -76,15 +78,20 @@ def train(dataset, validation, batch_size=32, epochs=50, model_path='models/mode
 
 if __name__ == "__main__":
 
-    batch_size = 32
+    with open(make_abs('./config.yaml'), 'r') as f:
+        conf = yaml.safe_load(f)
+    
+    batch_size = conf['params']['batch_size']
+    epochs = conf['params']['epochs']
+    model_path = make_abs(conf['paths']['model'])
 
-    train_dir = "data/train/processed/"
-    train_label_dir = "data/train/labels/"
+    train_dir = make_abs(conf['paths']['train_processed'])
+    train_label_dir = make_abs(conf['paths']['train_labels'])
 
-    val_dir = "data/test/processed/"
-    val_label_dir = "data/test/labels/"
+    val_dir = make_abs(conf['paths']['val_processed'])
+    val_label_dir = make_abs(conf['paths']['val_labels'])
 
     train_set = prepare_data(train_dir, train_label_dir, batch_size)
     val_set = prepare_data(val_dir, val_label_dir, batch_size)
 
-    trained = train(train_set, val_set, batch_size)
+    trained = train(train_set, val_set, batch_size, epochs, model_path)

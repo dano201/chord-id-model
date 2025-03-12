@@ -1,0 +1,15 @@
+paths:
+  train_raw: data\train\raw
+  train_processed: data\train\processed
+  train_labels: data\train\labels
+  val_raw: data\validation\raw
+  val_processed: data\validation\processed
+  val_labels: data\validation\labels
+  test_raw: data\test\raw
+  test_processed: data\test\processed
+  test_labels: data\test\labels
+  model: models\model.h5
+
+params:
+  epochs: 50
+  batch_size: 32
