@@ -8,7 +8,7 @@ paths:
   test_raw: data\test\raw
   test_processed: data\test\processed
   test_labels: data\test\labels
-  model: models\model.h5
+  model: models\model.keras
 
 params:
   epochs: 50
