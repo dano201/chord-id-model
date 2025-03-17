@@ -10,7 +10,8 @@ def custom_accuracy(y_true, y_pred):
 
 def build_model():
     model = tf.keras.Sequential([
-        layers.Conv2D(64, (3, 3), input_shape=(74, None, 1), kernel_regularizer=regularizers.l1(1e-5), use_bias=False),
+        layers.InputLayer(shape=(74, None, 1)),
+        layers.Conv2D(64, (3, 3), kernel_regularizer=regularizers.l1(1e-5), use_bias=False),
         layers.BatchNormalization(),
         layers.Activation('relu'),
         layers.Dropout(0.1),

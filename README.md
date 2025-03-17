@@ -51,7 +51,7 @@ Hyperparameters can be tweaked in `config.yaml`.
 
 ## Evaluation
 
-Evaluate the model using a specified test set (earlier pre-processed in `process` stage). The model will be evaluation in terms of Accuracy, Precision, Recall & F1-score.
+Evaluate the model using a specified test set (earlier pre-processed in `process` stage). The model will be evaluated in terms of Accuracy, Precision, Recall & F1-score.
 
 To execute this stage, run the `evaluate.py` script using your IDE or the below command (from the root directory):
 `python src/evaluate.py`
