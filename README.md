@@ -8,7 +8,7 @@ The project facilitates the following workflows:
 2) Defining and training the model, using hyperparameters specified in the config file.
 3) Evaluating the model in terms of accuracy, precision, recall, and F-score.
 
-Disclaimer: Python version 3.9-3.12 is required, as specified in TF documentation: https://www.tensorflow.org/install/pip
+Disclaimer - Python version 3.9-3.12 is required, as specified in TF documentation: https://www.tensorflow.org/install/pip
 
 ## Installation
 
