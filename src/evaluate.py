@@ -39,9 +39,6 @@ def create_dataset(X, batch_size):
         _generator,
         output_signature=tf.TensorSpec(shape=(74, None), dtype=tf.float32)
     )
-
-    
-
     dataset = dataset.padded_batch(batch_size, padded_shapes=([74, None]))
 
     return dataset
@@ -53,7 +50,7 @@ def evaluate(input_dir, label_dir, batch_size, model_path):
     test_set = create_dataset(X, batch_size)
     y_pred_raw = model.predict(test_set)
 
-    threshold = np.max(y_pred_raw, axis=1, keepdims=True) * 0.4
+    threshold = 0.39
 
     y_pred = (y_pred_raw >= threshold).astype(int)
     y_true = np.array(y_true)
@@ -74,7 +71,7 @@ if __name__ == "__main__":
         conf = yaml.safe_load(f)
 
     batch_size = conf['params']['batch_size']
-    model_path = make_abs(conf['paths']['model'])
+    model_path = conf['paths']['model']
     cqt_dir = make_abs(conf['paths']['test_processed'])
     label_dir = make_abs(conf['paths']['test_labels'])
 

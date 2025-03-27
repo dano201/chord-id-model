@@ -14,22 +14,20 @@ def build_model():
         layers.Conv2D(64, (3, 3), kernel_regularizer=regularizers.l1(1e-5), use_bias=False),
         layers.BatchNormalization(),
         layers.Activation('relu'),
-        layers.Dropout(0.1),
         layers.MaxPooling2D((2, 2)),
 
         layers.Conv2D(128, (3, 3), kernel_regularizer=regularizers.l1(1e-5), use_bias=False),
         layers.BatchNormalization(),
         layers.Activation('relu'),
-        layers.Dropout(0.1),
         layers.MaxPooling2D((2, 2)),
 
         layers.Conv2D(256, (3, 3), kernel_regularizer=regularizers.l1(1e-5), use_bias=False),
         layers.BatchNormalization(),
         layers.Activation('relu'),
-        layers.Dropout(0.1),
         layers.MaxPooling2D((2, 2)),
  
         layers.GlobalMaxPooling2D(),
+        layers.Dropout(0.3),
 
         layers.Dense(64, activation='relu'),
         layers.Dense(37, activation='sigmoid')
