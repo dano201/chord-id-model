@@ -50,11 +50,6 @@ def prepare_data(input_dir, label_dir, batch_size):
 def train(dataset, validation, batch_size, epochs, model_path):
     model = build_model()
 
-    stop_on_train_loss = tf.keras.callbacks.LambdaCallback(
-        on_epoch_end=lambda epoch, logs: 
-        setattr(model, 'stop_training', True) if logs['loss'] <= 0.2 else None
-    )
-
     early_stopping = EarlyStopping(
         monitor='val_loss',
         patience = 2, 
@@ -71,9 +66,9 @@ def train(dataset, validation, batch_size, epochs, model_path):
                         epochs = epochs, 
                         batch_size = batch_size,
                         validation_data = validation,
-                        callbacks=[stop_on_train_loss, checkpoint])
+                        callbacks=[early_stopping, checkpoint])
     
-    history = os.path.join(os.path.dirname(model_path), "dense_dropout_3.json")
+    history = os.path.join(os.path.dirname(model_path), "history.json")
     with open(history, 'w') as f:
         json.dump(trained.history, f)
 
