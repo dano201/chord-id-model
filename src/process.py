@@ -6,11 +6,11 @@ from helper import find_notes, make_abs, note_dict
 
 def to_CQT(file):
     y, sr = librosa.load(file, sr=16000)
-    CQT = librosa.cqt(y, sr=sr, fmin=librosa.note_to_hz('E2'), n_bins=74, bins_per_octave=24)
-    CQT_db = librosa.amplitude_to_db(np.abs(CQT), ref=np.max)
+    cqt = librosa.cqt(y, sr=sr, fmin=librosa.note_to_hz('E2'), n_bins=74, bins_per_octave=24)
+    to_db = librosa.amplitude_to_db(np.abs(cqt), ref=np.max)
 
-    CQT_db = (CQT_db - np.min(CQT_db)) / (np.max(CQT_db) - np.min(CQT_db))
-    return CQT_db
+    cqt = (to_db - np.min(to_db)) / (np.max(to_db) - np.min(to_db))
+    return to_db
 
 def create_label(filename):
     frets = filename.split("_")[-1]
