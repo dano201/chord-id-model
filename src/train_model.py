@@ -94,4 +94,4 @@ if __name__ == "__main__":
     train_set = prepare_data(train_dir, train_label_dir, batch_size)
     val_set = prepare_data(val_dir, val_label_dir, batch_size)
 
-    trained = train(train_set, val_set, batch_size, epochs, model_path)
+    train(train_set, val_set, batch_size, epochs, model_path)

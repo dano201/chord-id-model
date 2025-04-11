@@ -12,7 +12,7 @@ Disclaimer - Python version 3.9-3.12 is required, as specified in TF documentati
 
 ## Installation
 
-1. Clone the repository.
+1. Fork and clone the repository.
 
 2. Create and activate a virtual environment: 
     ```bash
