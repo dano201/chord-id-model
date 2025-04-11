@@ -10,7 +10,7 @@ def to_CQT(file):
     to_db = librosa.amplitude_to_db(np.abs(cqt), ref=np.max)
 
     cqt = (to_db - np.min(to_db)) / (np.max(to_db) - np.min(to_db))
-    return to_db
+    return cqt
 
 def create_label(filename):
     frets = filename.split("_")[-1]
