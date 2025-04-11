@@ -46,8 +46,6 @@ def create_dataset(X, batch_size):
 def evaluate(input_dir, label_dir, batch_size, model_path):
     X, y_true = load_data(input_dir, label_dir)
     model = tf.keras.models.load_model(model_path, custom_objects={'custom_accuracy': custom_accuracy})
-    model.summary()
-    model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy", custom_accuracy])
     
     test_set = create_dataset(X, batch_size)
     y_pred_raw = model.predict(test_set)
